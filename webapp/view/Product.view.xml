@@ -1,0 +1,54 @@
+<mvc:View
+	controllerName="sap.ui.task.table.controller.Product"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+  xmlns:form="sap.ui.layout.form">
+	<Page
+		title="{i18n>productPageTitle}"
+		showNavButton="true"
+		navButtonPress="onNavBack">
+		<Panel
+      class="sapUiNoContentPadding"
+      headerText="{ProductName}">
+      <content>
+        <form:SimpleForm
+          maxContainerCols="2"
+          editable="false"
+          layout="ResponsiveGridLayout"
+          labelSpanL="5"
+          labelSpanM="5"
+          emptySpanL="4"
+          emptySpanM="4"
+          columnsL="1"
+          columnsM="1">
+          <form:content>
+            <Label text="{i18n>productId}"/>
+            <Text text="{ProductID}"/>
+            <Label text="{i18n>unitsOnOrder}"/>
+            <Text text="{UnitsOnOrder}"/>
+            <Label text="{i18n>unitsInStock}"/>
+            <ObjectNumber
+              number="{UnitsInStock}"
+              state="{= ${UnitsInStock} > ${UnitsOnOrder} ? 'Success' : 'Error'}"/>
+            <Label text="{i18n>unitPrice}"/>
+            <ObjectNumber
+              number="{
+                parts: [{path: 'UnitPrice'}, {path: 'view>/currency'}],
+                type: 'sap.ui.model.type.Currency',
+                formatOptions: {
+                  showMeasure: false
+                }
+              }"
+              unit="{view>/currency}"/>
+            <Label text="{i18n>discontinued}"/>
+            <ObjectStatus
+              text="{
+                path: 'Discontinued',
+						    formatter: '.formatter.statusText'}"
+              state="{= ${Discontinued} ? 'Success' : 'Error'}"/>
+          </form:content>
+        </form:SimpleForm>
+      </content>
+    </Panel>
+	</Page>
+</mvc:View>

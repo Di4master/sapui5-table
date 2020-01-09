@@ -1,0 +1,128 @@
+[
+  {
+    "ProductID": 1,
+    "ProductName": "Chai",
+    "UnitsInStock": 39,
+    "UnitsOnOrder": 10,
+    "UnitPrice": 8,
+    "SupplierID": 1,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 2,
+    "ProductName": "Chang",
+    "UnitsInStock": 0,
+    "UnitsOnOrder": 7,
+    "UnitPrice": 6,
+    "SupplierID": 1,
+    "Discontinued": true
+  },
+  {
+    "ProductID": 3,
+    "ProductName": "Aniseed Syrup",
+    "UnitsInStock": 100,
+    "UnitsOnOrder": 6,
+    "UnitPrice": 3,
+    "SupplierID": 3,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 4,
+    "ProductName": "Schwarzwälder Kirschtorte",
+    "UnitsInStock": 2,
+    "UnitsOnOrder": 3,
+    "UnitPrice": 19,
+    "SupplierID": 3,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 5,
+    "ProductName": "Chef Anton's Cajun Seasoning",
+    "UnitsInStock": 0,
+    "UnitsOnOrder": 9,
+    "UnitPrice": 108,
+    "SupplierID": 3,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 6,
+    "ProductName": "Chef Anton's Gumbo Mix",
+    "UnitsInStock": 21,
+    "UnitsOnOrder": 0,
+    "UnitPrice": 18,
+    "SupplierID": 4,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 7,
+    "ProductName": "Grandma's Boysenberry Spread",
+    "UnitsInStock": 25,
+    "UnitsOnOrder": 25,
+    "UnitPrice": 18,
+    "SupplierID": 5,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 8,
+    "ProductName": "Uncle Bob's Organic Dried Pears",
+    "UnitsInStock": 29,
+    "UnitsOnOrder": 7,
+    "UnitPrice": 35,
+    "SupplierID": 6,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 9,
+    "ProductName": "Northwoods Cranberry Sauce",
+    "UnitsInStock": 4,
+    "UnitsOnOrder": 32,
+    "UnitPrice": 35,
+    "SupplierID": 6,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 10,
+    "ProductName": "Mishi Kobe Niku",
+    "UnitsInStock": 40,
+    "UnitsOnOrder": 0,
+    "UnitPrice": 130,
+    "SupplierID": 5,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 11,
+    "ProductName": "Ikura",
+    "UnitsInStock": 4,
+    "UnitsOnOrder": 10,
+    "UnitPrice": 13,
+    "SupplierID": 4,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 13,
+    "ProductName": "Carnarvon Tigers",
+    "UnitsInStock": 36,
+    "UnitsOnOrder": 40,
+    "UnitPrice": 56,
+    "SupplierID": 3,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 14,
+    "ProductName": "Teatime Chocolate Biscuits",
+    "UnitsInStock": 0,
+    "UnitsOnOrder": 40,
+    "UnitPrice": 7,
+    "SupplierID": 2,
+    "Discontinued": false
+  },
+  {
+    "ProductID": 15,
+    "ProductName": "Alice Mutton",
+    "UnitsInStock": 90,
+    "UnitsOnOrder": 20,
+    "UnitPrice": 75,
+    "SupplierID": 2,
+    "Discontinued": true
+  }
+]

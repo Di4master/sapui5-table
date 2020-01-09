@@ -1,0 +1,96 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "sap.ui.task.table",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"productRemote": {
+				"uri": "https://services.odata.org/V2/Northwind/Northwind.svc/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.task.table.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+		  "compact": true,
+		  "cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.ui.task.table.i18n.i18n"
+				}
+			},
+			"prods": {
+				"dataSource": "productRemote"
+			}
+		},
+		"routing": {
+		  "config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.ui.task.table.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"async": true
+		  },
+		  "routes": [
+				{
+					"pattern": "",
+					"name": "productlist",
+					"target": "productlist"
+				},
+				{
+					"pattern": "products/{productId}",
+					"name": "product",
+					"target": "product"
+				}
+		  ],
+		  "targets": {
+				"productlist": {
+					"viewID": "productlist",
+					"viewName": "ProductList",
+					"viewLevel" : 1
+				},
+				"product": {
+					"viewId": "product",
+					"viewName": "Product",
+					"viewLevel" : 2
+				}
+		  }
+		}
+	}
+}

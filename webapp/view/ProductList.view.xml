@@ -1,0 +1,36 @@
+<mvc:View
+	controllerName="sap.ui.task.table.controller.ProductList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+  xmlns:tt="sap.ui.task.table.control">
+	<Page
+    id="productListPage"
+    title="{i18n>productListPageTitle}"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <tt:PaginationNav id="pageNav" change="onPageChange"/>
+      <Table id="productTable"
+			  items="{/}"
+        itemPress="onListItemPress"
+        updateFinished="onUpdateFinished">
+        <columns>
+          <Column id="productNameCol"><Text text="{i18n>productName}"/></Column>
+          <Column id="unitsOnOrder" demandPopin="true" hAlign="End"><Text text="{i18n>unitsOnOrder}"/></Column>
+          <Column id="unitsInStockCol" demandPopin="true" hAlign="End"><Text text="{i18n>unitsInStock}"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Active">
+            <cells>
+              <Text text="{ProductName}"/>
+              <Text text="{UnitsOnOrder}"/>
+              <ObjectNumber
+                number="{UnitsInStock}"
+                state="{= ${UnitsInStock} > ${UnitsOnOrder} ? 'Success' : 'Error'}"/>
+            <Label text="{i18n>unitPrice}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
+</mvc:View>
