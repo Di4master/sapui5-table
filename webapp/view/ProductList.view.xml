@@ -6,7 +6,9 @@
 	<Page
     id="productListPage"
     title="{i18n>productListPageTitle}"
-    class="sapUiResponsiveContentPadding">
+    class="sapUiResponsiveContentPadding"
+    showNavButton="true"
+		navButtonPress="onNavBack">
     <content>
       <tt:PaginationNav id="pageNav" change="onPageChange"/>
       <Table id="productTable"

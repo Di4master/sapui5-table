@@ -3,7 +3,7 @@ sap.ui.define([
   "sap/m/Label",
   "sap/m/Button"
 ], function(Control, Label, Button) {
-  'use strict';
+  "use strict";
   
   return Control.extend("sap.ui.task.table.control.PaginationNav", {
     
@@ -42,13 +42,17 @@ sap.ui.define([
     },
 
     onBeforeRendering: function() {
-      var oResourceBundle = this.getModel("i18n").getResourceBundle();
-      var label = this.getAggregation("_label");
-      var oModel = this.getModel("products");
-
-      if (oModel) {
-        label.setText(oResourceBundle.getText("paginationLabelIndicator",
-          [this.getValue(), this.getMaxValue()]));
+      var iCurrentPage = this.getValue();
+      var ilastPage = this.getMaxValue();
+      if (iCurrentPage === 1) {
+        this.getAggregation("_buttonPrev").setEnabled(false);
+      } else if (iCurrentPage === ilastPage - 1) {
+        this.getAggregation("_buttonNext").setEnabled(true);
+      }
+      if (iCurrentPage === ilastPage) {
+        this.getAggregation("_buttonNext").setEnabled(false);
+      } else if (iCurrentPage === 2) {
+        this.getAggregation("_buttonPrev").setEnabled(true);
       }
     },
 
@@ -57,22 +61,24 @@ sap.ui.define([
       this.getAggregation("_label").addStyleClass(sMarginClass);
     },
 
-    bindData: function() {
+    bindData: function(oModel, iPage) {
       var oResourceBundle = this.getModel("i18n").getResourceBundle();
       var label = this.getAggregation("_label");
-      var oModel = this.getModel("products");
       var aData = oModel.getData().results;
 
       var iPagesCount = Math.ceil(aData.length / 5);
+      this.setMaxValue(iPagesCount);
+      this.setValue(iPage);
 
       label.setText(oResourceBundle.getText("paginationLabelIndicator",
-        [this.getValue(), iPagesCount]));
-      this.setMaxValue(iPagesCount);
-      if (this.getMaxValue() > 1) {
+        [this.getValue(), this.getMaxValue()]));
+      
+      if (iPagesCount > 1 && iPage > 1) {
+        this.getAggregation("_buttonPrev").setEnabled(true);
+      }
+      if (iPage < iPagesCount) {
         this.getAggregation("_buttonNext").setEnabled(true);
       }
-      label.setText(oResourceBundle.getText("paginationLabelIndicator",
-        [this.getValue(), this.getMaxValue()]));
     },
 
     renderer: function(oRM, oControl) {

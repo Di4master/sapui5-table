@@ -65,11 +65,19 @@
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"transition": "slide",
-				"async": true
+				"async": true,
+			  "bypassed": {
+				 "target": "notFound"
+			  }
 		  },
 		  "routes": [
 				{
 					"pattern": "",
+					"name": "home",
+					"target": "home"
+				},
+				{
+					"pattern": "products:?query:",
 					"name": "productlist",
 					"target": "productlist"
 				},
@@ -80,15 +88,26 @@
 				}
 		  ],
 		  "targets": {
+				"home": {
+					"viewID": "home",
+					"viewName": "Home",
+					"viewLevel": 1
+				},
 				"productlist": {
 					"viewID": "productlist",
 					"viewName": "ProductList",
-					"viewLevel" : 1
+					"viewLevel": 2
+				},
+				"notFound": {
+					"viewId": "notFound",
+					"viewName": "NotFound",
+					"transition": "show"
 				},
 				"product": {
 					"viewId": "product",
 					"viewName": "Product",
-					"viewLevel" : 2
+					"viewLevel": 3,
+					"transition": "flip"
 				}
 		  }
 		}

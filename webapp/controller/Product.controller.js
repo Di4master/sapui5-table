@@ -10,26 +10,30 @@ sap.ui.define([
 		formatter: formatter,
 
     onInit: function() {
-			var oModel = this.getOwnerComponent().getModel("prods");
-			var oView = this.getView();
-			oModel.read("/Products", {
-				success: function(oData) {
-					oView.setModel(oModel);
-				}
-			});
-
     	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("product").attachMatched(this._onObjectMatched, this);
 
 			var oViewModel = new sap.ui.model.json.JSONModel({
 				currency: "EUR"
 			});
-			oView.setModel(oViewModel, "view");
+			this.getView().setModel(oViewModel, "view");
     },
     
     _onObjectMatched: function(oEvent) {
 			var sId = oEvent.getParameter("arguments").productId;
-			this.getView().bindElement("/Products(" + sId + ")");
+			var oModel = this.getOwnerComponent().getModel("prods");
+			var oView = this.getView();
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this)
+			oView.unbindElement();
+			oModel.read("/Products(" + sId + ")", {
+				success: function(oData) {
+					oView.setModel(oModel);
+					oView.bindElement("/Products(" + sId + ")");
+				},
+				error: function() {
+					oRouter.getTargets().display("notFound");
+				}
+			});
 		},
 
 		onNavBack: function() {

@@ -1,46 +1,65 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/json/JSONModel"
 ], function (Controller, JSONModel) {
 	"use strict";
 
 	return Controller.extend("sap.ui.task.table.controller.ProductList", {
 
 		onInit: function() {
-			var oComp = this.getOwnerComponent();
-			var oModel = oComp.getModel("prods");
 			var oView = this.getView();
-			var getProducts = this.getProducts.bind(this);
 			var sContentDensityClass = this.getOwnerComponent().getContentDensityClass();
 			var oPageNav = oView.byId("pageNav");
-					oPageNav.setContentDensityClass(sContentDensityClass);
+			oPageNav.setContentDensityClass(sContentDensityClass);
 
-			oModel.read("/Products", {
-				success: function(oData) {
-					var oModel = new JSONModel();
-					oModel.setData(oData);
-					oComp.setModel(oModel, "products");
-					getProducts(1);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.getRoute("productlist").attachMatched(this._onRouteMatched, this);
+		},
 
-					oPageNav.bindData();
-				}
-			});
+		_onRouteMatched: function(oEvent) {
+			this._oRouterArgs = oEvent.getParameter("arguments");
+			this._oRouterArgs.query = this._oRouterArgs["?query"] || null;
+			if (this._oRouterArgs.query && !this._oRouterArgs.query.hasOwnProperty("page")) {
+				this.navToNotFound();
+			};
+			var currentPage = this._oRouterArgs.query ? this._oRouterArgs.query.page : 1;
+			this.getProducts(currentPage);
+			this.bindPageNavData(currentPage);
+		},
+
+		bindPageNavData: function(iPage) {
+			var oPageNav =  this.getView().byId("pageNav");
+			this.getOwnerComponent().getProductsModel()
+				.then(function(resolve) {
+					oPageNav.bindData(resolve, +iPage);
+				});
 		},
 
 		getProducts: function(currentPage) {
-			var oModel = new JSONModel();
-			var oData = this.getOwnerComponent().getModel("products").getData().results;
-
 			var itemsOnPage = 5;
 			var oCurrentPageData = [];
-			
-			for (var i = itemsOnPage * (currentPage - 1); i < itemsOnPage * currentPage; i++) {
-				if (oData[i]) {
-					oCurrentPageData.push(oData[i]);
-				}
-			}
-			oModel.setData(oCurrentPageData);
-			this.getOwnerComponent().setModel(oModel);
+			var oModel = new JSONModel();
+			var oComp = this.getOwnerComponent();
+			var navToNotFound = this.navToNotFound.bind(this);
+			oComp.getProductsModel()
+				.then(function(resolve) {
+					var oData = resolve.getData().results;
+					for (var i = itemsOnPage * (currentPage - 1); i < itemsOnPage * currentPage; i++) {
+						if (oData[i]) {
+							oCurrentPageData.push(oData[i]);
+						}
+					}
+					if (oCurrentPageData.length < 1) {
+						navToNotFound();
+					}
+					oModel.setData(oCurrentPageData);
+					oComp.setModel(oModel);
+				});
+		},
+
+		navToNotFound: function() {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this)
+			oRouter.getTargets().display("notFound");
 		},
 
     onListItemPress: function(oEvent) {
@@ -54,7 +73,18 @@ sap.ui.define([
 
 		onPageChange: function(oEvent) {
 			var iCurrentPage = oEvent.getParameter("value");
-			this.getProducts(iCurrentPage);
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("productlist", {
+				query : {
+					page : iCurrentPage
+				}
+			});
+		},
+
+		onNavBack: function() {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this)
+			oRouter.navTo("home");
 		}
 	});
 });

@@ -12,6 +12,7 @@
       headerText="{ProductName}">
       <content>
         <form:SimpleForm
+          value="/"
           maxContainerCols="2"
           editable="false"
           layout="ResponsiveGridLayout"
